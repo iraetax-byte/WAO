@@ -1,0 +1,67 @@
+/* --------------------------------------------
+   BASE.CSS — Typography, Colors, Resets
+--------------------------------------------- */
+
+:root {
+  --cream-0: #f7ecdb;
+  --cream-1: #eadcc2;
+  --cream-2: #e2d2b9;
+  --cream-3: #d7c7ae;
+
+  --white: #ffffff;
+  --black: #111111;
+  --gray-dark: #333333;
+
+  --shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.18);
+  --shadow-strong: 0 18px 45px rgba(0, 0, 0, 0.25);
+
+  --radius-pill: 999px;
+  --transition-fast: 0.22s ease-in-out;
+  --transition-slow: 0.45s ease-in-out;
+
+  --panel-width: 260px;
+  --float-drift: 4px;
+
+  --z-intro: 50;
+  --z-track-intro: 40;
+  --z-panel: 30;
+  --z-main: 10;
+}
+
+/* RESET */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: radial-gradient(circle at 30% 20%, var(--cream-0) 0%, var(--cream-1) 45%, var(--cream-2) 100%);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+button, input, select {
+  font-family: inherit;
+}
+
+.hidden {
+  display: block; /* opacity / pointer-events control visibility */
+}
+/* Ocultar el reproductor nativo, pero dejarlo funcional */
+#audio-element {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.hidden-input {
+  display: none;
+}

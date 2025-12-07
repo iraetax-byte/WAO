@@ -1,0 +1,17 @@
+/* --------------------------------------------
+   VISUALS.CSS — Canvas & atmospheric overlays
+--------------------------------------------- */
+
+.visual-stage {
+  pointer-events: none;
+  filter: blur(0.2px);
+}
+
+/* Optional warm grain that can be toggled later */
+.visual-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url('../assets/grain.png'); /* optional */
+}

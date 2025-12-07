@@ -1,0 +1,342 @@
+/* --------------------------------------------
+   COMPONENTS.CSS — Panel, buttons, João, selector
+--------------------------------------------- */
+
+/* PANEL TOGGLE */
+
+.panel-toggle {
+  position: fixed;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 80px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.panel-toggle:hover {
+  box-shadow: var(--shadow-strong);
+  transform: translateY(-50%) translateX(-2px);
+}
+
+/* FLOATING PANEL */
+
+.floating-panel {
+  position: fixed;
+  top: 50%;
+  right: 26px;
+  transform: translateY(-50%);
+  width: min(var(--panel-width), 80vw);
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 24px;
+  box-shadow: var(--shadow-strong);
+  z-index: var(--z-panel);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+  animation: float-drift 5s ease-in-out infinite alternate;
+}
+
+.floating-panel.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.floating-panel.hidden {
+  transform: translateY(calc(-50% + 8px));
+}
+
+@keyframes float-drift {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(calc(-50% + var(--float-drift))); }
+}
+
+.floating-panel-inner {
+  padding: 14px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* PANEL SECTIONS */
+
+.panel-section {
+  background: rgba(250, 245, 236, 0.9);
+  border-radius: 16px;
+  padding: 10px 10px 8px;
+}
+
+.panel-title {
+  margin: 0 0 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0.8;
+  display: flex;
+  justify-content: space-between;
+}
+
+.panel-mode-name {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.control-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.control-row label {
+  font-size: 11px;
+  opacity: 0.76;
+}
+
+.control-row input[type="range"] {
+  width: 100%;
+}
+
+/* JOÃO BUBBLE */
+
+.joao-bubble {
+  position: fixed;
+  bottom: 18vh;
+  right: 12vw;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, #ffffff 0%, #f5ebd7 40%, #f0e1c5 100%);
+  box-shadow: var(--shadow-soft);
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+  animation: joao-float 4s ease-in-out infinite alternate;
+}
+
+.joao-bubble:not(.hidden) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes joao-float {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(var(--float-drift)); }
+}
+
+/* TRACK SELECTOR MODAL */
+
+.track-selector-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.18);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-slow);
+  z-index: var(--z-track-intro);
+}
+
+.track-selector-backdrop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.track-selector-modal {
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: var(--shadow-strong);
+  border-radius: 22px;
+  padding: 18px 20px;
+  width: min(360px, 84vw);
+}
+
+.track-selector-title {
+  margin: 0 0 12px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0.8;
+}
+
+.track-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.track-item-button {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 6px 4px;
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.track-item-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+.track-item-title {
+  font-weight: 600;
+}
+
+.track-item-meta {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.track-selector-close {
+  margin-top: 8px;
+  width: 100%;
+  border-radius: var(--radius-pill);
+  border: none;
+  padding: 8px 0;
+  background: var(--black);
+  color: var(--white);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  cursor: pointer;
+}
+
+/* TRACK INTRO POPUP */
+
+.track-intro {
+  position: fixed;
+  top: 6vh;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: var(--z-track-intro);
+}
+
+.track-intro.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.track-intro-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.track-intro-title {
+  margin-top: 2px;
+  font-size: 13px;
+  font-weight: 600;
+}
+/* --------------------------------------------
+   BOTTOM BUBBLES (modes + intensity + params)
+--------------------------------------------- */
+
+.bottom-bubbles {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.wao-bubble {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: radial-gradient(circle at 30% 25%, #ffffff 0%, #f5ebd7 40%, #f0e1c5 100%);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.wao-bubble.bubble-small {
+  width: 34px;
+  height: 34px;
+  background: radial-gradient(circle at 30% 25%, #ffffff 0%, #f8f3ea 46%, #f1e3cd 100%);
+}
+
+.wao-bubble:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-strong);
+}
+
+.wao-bubble:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Tres puntos centrados (intensity bubble) */
+
+.bubble-intensity .bubble-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.bubble-intensity .bubble-dots span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(23, 16, 5, 0.9);
+}
+
+/* Icono de sliders (params bubble) */
+
+.bubble-params .bubble-icon-sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.bubble-params .bubble-icon-sliders span {
+  width: 14px;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(23, 16, 5, 0.9);
+}
+
+/* Aseguramos que panel-toggle se comporta como burbuja, no como botón flotante antiguo */
+
+.panel-toggle {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.panel-toggle.wao-bubble {
+  box-shadow: var(--shadow-soft);
+}
+
+.panel-toggle.wao-bubble:hover {
+  box-shadow: var(--shadow-strong);
+}

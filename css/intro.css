@@ -1,0 +1,46 @@
+/* --------------------------------------------
+   INTRO.CSS — Intro logo animation
+--------------------------------------------- */
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, var(--cream-0), var(--cream-1) 45%, var(--cream-2));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--z-intro);
+  pointer-events: none;
+  animation: intro-fade 2.8s ease-in-out forwards;
+}
+
+.intro-disc {
+  width: min(320px, 70vw);
+  height: min(320px, 70vw);
+  border-radius: 50%;
+  background: var(--white);
+  border: 7px solid var(--gray-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-soft);
+  animation: intro-breath 2.2s ease-in-out forwards;
+}
+
+.intro-logo-text {
+  font-size: clamp(32px, 6vw, 40px);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+@keyframes intro-breath {
+  0% { transform: scale(0.96); }
+  25% { transform: scale(1); }
+  60% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+@keyframes intro-fade {
+  0%, 60% { opacity: 1; }
+  100% { opacity: 0; }
+}

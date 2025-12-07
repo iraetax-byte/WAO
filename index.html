@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WÃO JOÃO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Core styles (usa tus CSS existentes) -->
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/intro.css" />
+  <link rel="stylesheet" href="css/visuals.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- INTRO OVERLAY -->
+    <div id="intro-overlay" class="intro-overlay">
+      <div class="intro-disc">
+        <div class="intro-disc-inner">
+          <span class="intro-logo-text">WÃO</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRACK INTRO POPUP -->
+    <div id="track-intro" class="track-intro hidden">
+      <div class="track-intro-label">Now playing</div>
+      <div class="track-intro-title"></div>
+    </div>
+
+    <!-- TOP STRIP -->
+    <header class="top-strip">
+      <div class="top-strip-left">
+        <div class="top-track-title" id="top-track-title">No track loaded</div>
+        <div class="top-track-bpm" id="top-track-bpm">BPM —</div>
+      </div>
+      <div class="top-track-controls">
+        <button id="btn-change-track" class="top-btn" type="button">Change</button>
+        <button id="btn-stop-track" class="top-btn" type="button">Stop</button>
+      </div>
+    </header>
+
+    <main class="main-layout">
+
+      <!-- VISUAL CANVAS -->
+      <div class="visual-stage">
+        <canvas id="visual-canvas"></canvas>
+      </div>
+
+      <!-- CENTRAL DISC -->
+      <div class="disc-wrapper">
+        <div id="wao-disc" class="wao-disc">
+          <span class="wao-disc-label">WÃO</span>
+        </div>
+      </div>
+
+      <!-- JOÃO BUBBLE -->
+      <button
+        id="joao-bubble"
+        class="joao-bubble hidden"
+        type="button"
+        aria-label="João suggestions">
+      </button>
+
+            <!-- BOTTOM BAR -->
+      <div class="bottom-bar">
+
+                <!-- Bubble toggles -->
+        <div class="bottom-bubbles">
+          <!-- Small white bubble: shows/hides modes strip -->
+          <button
+            id="modes-toggle"
+            class="wao-bubble bubble-small"
+            type="button"
+            aria-label="Toggle modes">
+          </button>
+
+          <!-- Small bubble with three dots: shows/hides intensity panel -->
+          <button
+            id="intensity-toggle"
+            class="wao-bubble bubble-small bubble-intensity"
+            type="button"
+            aria-label="Toggle intensity">
+            <span class="bubble-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+
+          <!-- Params bubble: opens João / floating panel -->
+          <button
+            id="panel-toggle"
+            class="wao-bubble bubble-params panel-toggle"
+            type="button"
+            aria-label="Open controls">
+            <span class="bubble-icon-sliders">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+        </div>
+
+        <!-- Collapsible modes panel -->
+        <div id="modes-panel" class="bottom-panel modes-panel collapsed">
+          <div class="modes-strip" id="modes-strip"></div>
+        </div>
+
+        <!-- Collapsible intensity + BPM panel -->
+        <div id="intensity-panel" class="bottom-panel intensity-panel collapsed">
+          <div class="intensity-block">
+            <div class="intensity-header">
+              <span class="intensity-label">Intensity</span>
+              <span id="bpm-indicator" class="bpm-indicator">BPM —</span>
+            </div>
+            <div class="intensity-line" id="intensity-line">
+              <div class="intensity-thumb" id="intensity-thumb"></div>
+            </div>
+            <!-- Hidden native slider, still used by main.js / visual engine -->
+            <input
+              id="intensity-slider"
+              class="intensity-slider hidden-input"
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- FLOATING PANEL -->
+      <aside id="floating-panel" class="floating-panel hidden">
+        <div class="floating-panel-inner">
+
+          <!-- SUGGESTED -->
+          <section class="panel-section panel-suggested">
+            <h3 class="panel-title">Suggested</h3>
+            <div id="suggested-content" class="panel-body muted">
+              João will suggest tweaks here.
+            </div>
+          </section>
+
+          <!-- GLOBAL PARAMETERS -->
+          <section class="panel-section panel-globals">
+            <h3 class="panel-title">Global</h3>
+            <div class="panel-body" id="globals-body"></div>
+          </section>
+
+          <!-- MODE PARAMETERS -->
+          <section class="panel-section panel-mode">
+            <h3 class="panel-title">
+              Mode Settings
+              <span id="active-mode-name" class="panel-mode-name">MIST</span>
+            </h3>
+            <div class="panel-body" id="mode-body"></div>
+          </section>
+
+        </div>
+      </aside>
+
+      <!-- CUSTOM TRACK INPUT (hidden) -->
+      <input
+        id="custom-track-input"
+        type="file"
+        accept="audio/*"
+        class="hidden-input"
+      />
+
+      <!-- TRACK SELECTOR MODAL -->
+      <div id="track-selector-backdrop" class="track-selector-backdrop hidden">
+        <div class="track-selector-modal">
+          <h2 class="track-selector-title">Select track</h2>
+          <ul id="track-list" class="track-list"></ul>
+          <button
+            id="track-selector-close"
+            class="track-selector-close"
+            type="button">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <!-- AUDIO ELEMENT -->
+      <audio id="audio-element"></audio>
+
+    </main>
+  </div>
+
+   <script src="js/lib/butterchurn.min.js"></script>
+<script src="js/lib/butterchurn-presets.min.js"></script>
+
+  <!-- MAIN SCRIPT -->
+  <script type="module" src="js/main.js"></script>
+
+  <!-- Bottom panels / intensity UI -->
+  <script type="module">
+    import "./js/ui/intensity-ui.js";
+
+    const panelToggle = document.getElementById("panel-toggle");
+    const floatingPanel = document.getElementById("floating-panel");
+
+    if (panelToggle && floatingPanel) {
+      let open = false;
+      panelToggle.addEventListener("click", () => {
+        open = !open;
+        floatingPanel.classList.toggle("hidden", !open);
+        floatingPanel.classList.toggle("visible", open);
+      });
+    }
+  </script>
+  </script>
+</body>
+</html>
